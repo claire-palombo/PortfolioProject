@@ -88,7 +88,7 @@ PRIMARY KEY (`seasonID`),
 
 UNIQUE(`seasonName`));
 
-#Create Temp Table for Home and Away Teams
+# Create Temp Table for Home and Away Teams
 
 CREATE TABLE `G12`.`temp`(
 
@@ -104,7 +104,7 @@ CREATE TABLE `G12`.`temp`(
 
  PRIMARY KEY(fixtureID))
 
-#Insert Data into temp table:
+# Insert Data into temp table:
 
 INSERT INTO G12.temp(homeTeam,awayTeam,`date`,`time`) 
 
@@ -112,7 +112,7 @@ SELECT homeTeam, awayTeam, `date`, `time`
 
 FROM fcp_2023.results_csv
 
-#Create fixture table
+# Create fixture table
 
 CREATE TABLE G12.fixture (
 
@@ -144,7 +144,7 @@ CONSTRAINT `refID_fk` FOREIGN KEY (`refID`)
 
       ON DELETE NO ACTION ON UPDATE NO ACTION);
 
-#Insert data season
+# Insert data season
 
 INSERT INTO G12.season(seasonName)
 
@@ -154,7 +154,7 @@ FROM fcp_2023.results_csv
 
 ORDER BY 1;
 
-#Insert data fixture
+# Insert data fixture
 
 INSERT INTO G12.fixture(fixtureID, seasonID, refID, date, time, htr, ftr)
 
@@ -178,7 +178,7 @@ from fcp_2023.results_csv a, G12.season b, G12.referee c, G12.temp d
 
 WHERE a.season = b.seasonName AND a.referee = c.refName AND concat(a.homeTeam,a.awayTeam,a.`date`,a.`time`) = concat(d.homeTeam,d.awayTeam,d.`date`,d.`time`)
 
-#Create division table
+# Create division table
 
 CREATE TABLE G12.division 
 
@@ -192,7 +192,7 @@ FOREIGN KEY (leagueID) REFERENCES `G12`.`league`(`leagueID`)
 
 ON DELETE NO ACTION ON UPDATE NO ACTION);
 
-#Create team_season_div
+# Create team_season_div
 
 CREATE TABLE G12.team_season_div 
 
@@ -222,7 +222,7 @@ FOREIGN KEY (divisionID)
 
 REFERENCES `division`(`divisionID`) ON DELETE NO ACTION ON UPDATE NO ACTION);
 
-#Insert data into division table
+# Insert data into division table
 
 INSERT INTO G12.division(divisionName, leagueID)
 
@@ -250,7 +250,7 @@ JOIN G12.division d ON a.`div` = d.divisionName
 
 ORDER BY t.teamID
 
-#Create team_fixture table
+# Create team_fixture table
 
 CREATE TABLE G12.team_fixture 
 
@@ -278,7 +278,7 @@ CREATE TABLE G12.team_fixture
 
 PRIMARY KEY(teamID,FixtureID));
 
-#Insert Data into team_fixture table
+# Insert Data into team_fixture table
 
 INSERT INTO G12.team_fixture(teamID,fixtureID,isHome,shots,shotsTarget,corners,
 
